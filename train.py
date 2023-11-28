@@ -35,7 +35,7 @@ def gradient_descent(m, X, Y, tmpthetas, learning_rate, epoch):
 
 
 def calcul_thetas(X, Y, old_X, old_Y):
-    thetas = gradient_descent(float(len(X)), X, Y, np.array([0, 0]), 1, 100000)
+    thetas = gradient_descent(float(len(X)), X, Y, np.array([0, 0]), 0.01, 100000)
     thetas[0] = thetas[0] * max(old_Y)
     thetas[1] = thetas[1] * (max(old_Y) / max(old_X))
     return thetas
@@ -48,20 +48,7 @@ def throw_thethas_to_file(thethas):
 		newdata = ",theta0,theta1\n0," + data
 		fd.write(newdata)
 
-
-def accuracy(X, Y, thetas):
-    y_mean = Y.mean()
-    sumofsquares = 0
-    sumofresiduals = 0
-    for i in range (len(X)):
-         y_pred = thetas[0] + thetas[1] * X[i]
-         sumofsquares += (Y[i] - y_mean) ** 2
-         sumofresiduals += (Y[i] - y_pred) ** 2
-    score = 1 - (sumofsquares / sumofresiduals)
-    return (score)
-
 X, old_X, Y, old_Y = csv_reader("data.csv")
 thethas = calcul_thetas(X, Y, old_X, old_Y)
 throw_thethas_to_file(thethas)
-score = accuracy(old_X, old_Y, thethas)
-print(score)
+

@@ -17,6 +17,13 @@ def predict(theta0, theta1, input):
 	return theta0 + theta1 * input
 
 
+def r_squared(X, Y, theta0, theta1):
+    y_mean = np.mean(Y)
+    sumofsquares = np.sum((Y - y_mean) ** 2)
+    sumofresiduals = np.sum((Y - (theta0 + theta1 * X)) ** 2)
+    r2 = 1 - (sumofresiduals / sumofsquares)
+    return r2
+
 if __name__ == "__main__":
 	try:
 		thetas = pd.read_csv("thetas.csv")
@@ -31,6 +38,7 @@ if __name__ == "__main__":
 			X = data['km'].values
 			Y = data['price'].values
 			line = theta0 + theta1 * X
+			print(r_squared(X, Y, theta0, theta1))
 		except:
 			print("Error with the csv file.")
 			exit(1)
