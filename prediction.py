@@ -2,16 +2,12 @@ import argparse
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import csv
 
 parser = argparse.ArgumentParser(
 	description="Predict a car's value using linear regression.")
 parser.add_argument('kms', help="car's mileage")
 parser.add_argument('--graph', '-g', action='store_true', help='show graph')
 options = parser.parse_args()
-
-# ------------------------------------------#
-
 
 def predict(theta0, theta1, input):
 	return theta0 + theta1 * input
@@ -38,13 +34,14 @@ if __name__ == "__main__":
 			X = data['km'].values
 			Y = data['price'].values
 			line = theta0 + theta1 * X
-			print(r_squared(X, Y, theta0, theta1))
 		except:
 			print("Error with the csv file.")
 			exit(1)
+	r_squared = r_squared(X, Y, theta0, theta1)
 	predicted = predict(theta0, theta1, int(options.kms))
 	print("The price for a car with {} km is estimated at {}".format(
 		options.kms, round(predicted)))
+	print("statistical measure of how well the regression line approximates the actual data : {:0.1%}".format(r_squared))
 	if options.graph:
             axes = plt.axes()
             axes = plt.grid()
