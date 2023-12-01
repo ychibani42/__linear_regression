@@ -15,8 +15,8 @@ def predict(theta0, theta1, input):
 
 def r_squared(X, Y, theta0, theta1):
     y_mean = np.mean(Y)
-    sumofsquares = np.sum((Y - y_mean) ** 2)
     sumofresiduals = np.sum((Y - (theta0 + theta1 * X)) ** 2)
+    sumofsquares = np.sum((Y - y_mean) ** 2)
     r2 = 1 - (sumofresiduals / sumofsquares)
     return r2
 
