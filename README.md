@@ -28,3 +28,20 @@ To launch this project, you need follow these steps:
    
 This project includes a sample dataset for car prices that you can use for training and testing your machine learning model. However, the knowledge and skills you gain from this project can be applied to any other dataset, allowing you to make predictions on various types of data.
 
+3. launch the programs :
+
+   ```shell
+   python train.py -g
+   ```
+Train the model, print a graph of the gradient descent algorithm, ask the number of time we train the model as an input and calculate the thetas that will be sent in thetas.csv for predictions.py
+
+![testle](https://github.com/ychibani42/__linear_regression/assets/55283897/7f8e6fad-081a-4912-9a09-986c3072f927)
+
+   ```shell
+   python predictions.py -g <price or data to predict>
+   ```
+Ask a mileage or a data input you want to predict with the values given in data.csv, get the thetas from thetas.csv and print a graph, and print a percentage of how relevant is my model, and the prediction
+
+![youpi](https://github.com/ychibani42/__linear_regression/assets/55283897/3fd5ed06-9f44-4bd1-9d60-de690616b527)
+
+   
