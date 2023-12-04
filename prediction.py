@@ -36,11 +36,12 @@ if __name__ == "__main__":
 		r_square = r_squared(X, Y, theta0, theta1)
 		predicted = predict(theta0, theta1, int(options.kms))
 		print("The price for a car with {} km is estimated at {}".format(
-		options.kms, round(predicted)))
-		print("statistical measure of how well the regression line approximates the actual data : {:0.1%}".format(r_square))
+			options.kms, round(predicted)))
+		print("statistical measure of how well the regression line approximates the actual data : {:0.1%}".format(
+			r_square))
 	except:
-		print("Error with the csv file.")
-		exit(1)
+			print("Error file.")
+			exit(1)
 	if options.graph:
             axes = plt.axes()
             axes = plt.grid()

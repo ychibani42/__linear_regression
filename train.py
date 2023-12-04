@@ -2,6 +2,12 @@ import numpy as np
 import pandas as pd
 import sys
 import matplotlib.pyplot as plt
+import argparse
+
+parser = argparse.ArgumentParser(
+	description="Show gradient descent graph.")
+parser.add_argument('--graph', '-g', action='store_true', help='show graph')
+options = parser.parse_args()
 
 def scaling_data(data, scale):
     return data / scale
@@ -23,27 +29,27 @@ def csv_reader(path):
 
 
 def z_fct(x, y):
-    return np.sin(5 * x) * np.cos(5 * y) / 5
+    return np.sin(-5 * x) * np.cos(5 * y) / 5
 
 
 def gradient_descent(m, X, Y, tmpthetas, learning_rate, epoch):
 
-    x = np.arange(-1, 1.5, 0.05)
-    y = np.arange(-1, 1.5, 0.05)
-    xtmp, ytmp = np.meshgrid(x, y)
-    Z = z_fct(xtmp, ytmp)
-    ax = plt.subplot(projection="3d", zorder=False)
-
+    if (options.graph):
+        x = np.arange(-1, 1.5, 0.05)
+        y = np.arange(-1, 1.5, 0.05)
+        xtmp, ytmp = np.meshgrid(x, y)
+        Z = z_fct(xtmp, ytmp)
+        ax = plt.subplot(projection="3d", zorder=False)
     for _ in range(epoch):
         oldthetas = tmpthetas
         tmpthetas = tmpthetas - learning_rate * (1 / m) * (X.T @ ((X @ tmpthetas) - Y))
         if np.array_equal(tmpthetas, oldthetas):
             break
-        ax.plot_surface(xtmp, ytmp, Z, cmap="viridis")
-        ax.scatter(tmpthetas[0], tmpthetas[1], z_fct(tmpthetas[0], tmpthetas[1]), color="magenta", zorder=1)
-        plt.pause(0.0001)
-        ax.clear()
-    print("Thetas founded !")
+        if (options.graph):
+            ax.plot_surface(xtmp, ytmp, Z, cmap="viridis")
+            ax.scatter(tmpthetas[0], tmpthetas[1], z_fct(tmpthetas[0], tmpthetas[1]), color="magenta", zorder=1)
+            plt.pause(0.0001)
+            ax.clear()
     return tmpthetas
 
 
@@ -53,8 +59,9 @@ def calcul_thetas(X, Y, old_X, old_Y, iterations):
     thetas[1] = thetas[1] * (max(old_Y) / max(old_X))
     return thetas
 
+
 def throw_thethas_to_file(tmpthetas):
-    with open("thetas.csv", "r+") as fd:
+    with open("thetas.csv", "w+") as fd:
         data = str(tmpthetas[0]) + ',' + str(tmpthetas[1]) + '\n'
         newdata = ",theta0,theta1\n0," + data
         fd.write(newdata)
