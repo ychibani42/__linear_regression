@@ -28,20 +28,19 @@ if __name__ == "__main__":
 	except:
 		print("Error with the csv for thetas.")
 		exit()
-	if options.graph:
-		try:
-			data = pd.read_csv("data.csv")
-			X = data['km'].values
-			Y = data['price'].values
-			line = theta0 + theta1 * X
-		except:
-			print("Error with the csv file.")
-			exit(1)
-	r_squared = r_squared(X, Y, theta0, theta1)
-	predicted = predict(theta0, theta1, int(options.kms))
-	print("The price for a car with {} km is estimated at {}".format(
+	try:
+		data = pd.read_csv("data.csv")
+		X = data['km'].values
+		Y = data['price'].values
+		line = theta0 + theta1 * X
+		r_square = r_squared(X, Y, theta0, theta1)
+		predicted = predict(theta0, theta1, int(options.kms))
+		print("The price for a car with {} km is estimated at {}".format(
 		options.kms, round(predicted)))
-	print("statistical measure of how well the regression line approximates the actual data : {:0.1%}".format(r_squared))
+		print("statistical measure of how well the regression line approximates the actual data : {:0.1%}".format(r_square))
+	except:
+		print("Error with the csv file.")
+		exit(1)
 	if options.graph:
             axes = plt.axes()
             axes = plt.grid()

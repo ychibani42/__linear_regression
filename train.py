@@ -23,7 +23,7 @@ def csv_reader(path):
 
 
 def z_fct(x, y):
-    return -np.sin(5 * x) * -np.cos(5 * y) / 5
+    return np.sin(5 * x) * np.cos(5 * y) / 5
 
 
 def gradient_descent(m, X, Y, tmpthetas, learning_rate, epoch):
